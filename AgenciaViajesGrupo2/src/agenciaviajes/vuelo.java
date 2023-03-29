@@ -63,7 +63,7 @@ public class vuelo {
 				+ ", ciudad_salida=" + ciudad_salida + ", ciudad_llegada=" + ciudad_llegada + "]";
 	}
 	
-	public void pnatailaratu() {
+	public void pnatailaratuVuelo() {
 		System.out.println("ID del vuelo: "+this.id_vuelo);
 		System.out.println("Hora de salida: "+this.hora_salida);
 		System.out.println("Hora estimada de llegada: "+this.hora_llegada);
@@ -71,7 +71,7 @@ public class vuelo {
 		System.out.println("Ciudad de llegada: "+this.ciudad_llegada);
 	}
 	
-	public void leer2 (Scanner sc) {
+	public void leerVuelo (Scanner sc) {
 		System.out.println("ID del vuelo: ");
 		this.id_vuelo=sc.nextInt();
 		System.out.println("Hora de salida: ");

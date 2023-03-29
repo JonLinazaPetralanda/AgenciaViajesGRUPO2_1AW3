@@ -22,13 +22,19 @@ public class socio extends cliente {
 		this.descuento = descuento;
 	}
 	
-
 	@Override
 	public String toString() {
 		return super.toString()+"socio [descuento=" + descuento + "]";
 	}
-
-	public void leer(Scanner sc) {
+	public void pantailaratuClienteSocio() {
+		System.out.println(this.id_cliente);
+		System.out.println(this.nombre);
+		System.out.println(this.apellidos);
+		System.out.println(this.telefono);
+		System.out.println(this.descuento);
+	}
+	
+	public void leerCliente(Scanner sc) {
 		System.out.println("ID cliente: ");
 		this.id_cliente=sc.nextInt();	
 		System.out.println("Nombre: ");

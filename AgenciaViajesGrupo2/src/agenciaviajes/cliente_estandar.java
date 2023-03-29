@@ -27,7 +27,7 @@ public class cliente_estandar extends cliente{
 		return super.toString()+"cliente_estandar [promocion=" + promocion + "]";
 	}
 
-	public void pantailaratu() {
+	public void pantailaratuClienteEstandar() {
 		System.out.println("ID cliente: "+this.id_cliente);
 		System.out.println("Nombre: "+this.nombre);
 		System.out.println("Apellidos: "+this.apellidos);
@@ -35,7 +35,7 @@ public class cliente_estandar extends cliente{
 		System.out.println("Promocion: "+this.promocion);
 	}
 	
-	public void leer(Scanner sc) {
+	public void leerCliente(Scanner sc) {
 		System.out.println("ID cliente: ");
 		this.id_cliente=sc.nextInt();	
 		System.out.println("Nombre: ");

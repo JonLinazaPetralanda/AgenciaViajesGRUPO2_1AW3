@@ -67,7 +67,7 @@ public class estancia {
 		this.precio = precio;
 	}
 	
-	public void pantailaratu() {
+	public void pantailaratuEstancia() {
 		System.out.println("ID estancia: "+this.id_estancia);
 		System.out.println("Descripcion: "+this.direccion);
 		System.out.println("Ciudad: "+this.ciudad);
@@ -76,7 +76,7 @@ public class estancia {
 		System.out.println("Precio"+this.precio);
 	}
 	
-	public void leer1(Scanner sc) {
+	public void leerEstancia(Scanner sc) {
 		System.out.println("ID estancia: ");
 		this.id_estancia=sc.nextInt();
 		System.out.println("Direccion: ");

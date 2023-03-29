@@ -81,7 +81,7 @@ public class reserva implements Serializable{
 				+", Precio total="+precio+", Dia que inicia="+dia_inicio+", Dia que finaliza="+dia_fin+".";
 			}
 
-	public void pantailaratu() {
+	public void pantailaratuReserva() {
 		System.out.println("******************");
 		System.out.println("ID de la reserva: "+this.id_reserva);
 		System.out.println("ID de estancia: "+this.id_estancia);
@@ -90,7 +90,7 @@ public class reserva implements Serializable{
 		System.out.println("Cuando empieza: "+this.dia_inicio);
 		System.out.println("Cuando acaba: "+this.dia_fin);
 	}
-	public void leer(Scanner sc) {
+	public void leerReserva(Scanner sc) {
 		System.out.println("Introduce tu correspondiente ID de la reserva: ");
 		this.id_reserva=sc.nextInt();
 		System.out.println("Ahora la ID de la estancia: ");

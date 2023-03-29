@@ -52,9 +52,9 @@ public abstract class cliente {
 				+ telefono + "]";
 	}
 	
-	public abstract void leer(Scanner sc);
+	public abstract void leerCliente(Scanner sc);
 	
-	public void pantailaratu() {
+	public void pantailaratuCliente() {
 		System.out.println("ID cliente "+this.id_cliente);
 		System.out.println("Nombre "+this.nombre);
 		System.out.println("Apellidos "+this.apellidos);
