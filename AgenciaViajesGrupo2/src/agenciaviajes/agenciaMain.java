@@ -78,6 +78,7 @@ public class agenciaMain {
 		    		estancia e1=new estancia();
 		    			e1.leerEstancia(sc);
 		    			estancias.add(e1);
+		    			
 		    			est=true;	
 		    		break;
 		    	
@@ -120,13 +121,13 @@ public class agenciaMain {
                 seguir = false;
             }	
 		
-		if (vue) {
+		 if (vue) {
 			try {
-				String col = "";
+				String consulta = "";
 				Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/agenciaviaje_taw", "root", "");
 				Statement st = conexion.createStatement();
-				col = "delete FROM vuelo;";
-				st.executeUpdate(col);
+				consulta = "delete FROM vuelo;";
+				st.executeUpdate(consulta);
 				int id_vuelo;
 				String hora_salida;
 				String hora_llegada;
@@ -139,8 +140,8 @@ public class agenciaMain {
 					ciudad_salida = vuelos.get(pos).getCiudad_salida();
 					ciudad_llegada = vuelos.get(pos).getCiudad_llegada();
 					
-					col = "insert into vuelo values ("+id_vuelo+",'"+hora_salida+"','"+ hora_llegada +"','"+ciudad_salida+"','"+ciudad_salida+"','"+ciudad_llegada+");";
-					st.executeUpdate(col);
+					consulta = "insert into vuelo values ("+id_vuelo+",'"+hora_salida+"','"+ hora_llegada +"','"+ciudad_salida+"','"+ciudad_salida+"','"+ciudad_llegada+");";
+					st.executeUpdate(consulta);
 				}
 				st.close();
 				conexion.close();
@@ -149,15 +150,15 @@ public class agenciaMain {
 				e.printStackTrace();
 				System.out.println("Error de Conexión");
 			}
-		}
+		}	
 		
 		if (est) {
 			try {
-				String col = "";
+				String consulta = "";
 				Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/agenciaviaje_taw", "root", "");
 				Statement st = conexion.createStatement();
-				col = "delete FROM estancia;";
-				st.executeUpdate(col);
+				consulta = "delete FROM estancia;";
+				st.executeUpdate(consulta);
 				int id_estancia;
 				String direccion;
 				String ciudad;
@@ -171,8 +172,8 @@ public class agenciaMain {
 					pais = estancias.get(pos).getPais();
 					estrella = estancias.get(pos).getEstrella();
 					precio = estancias.get(pos).getPrecio();
-					col = "insert into estancia values ("+id_estancia+",'"+direccion+"','"+ ciudad +"','"+pais+"','"+estrella+"','"+precio+");";
-					st.executeUpdate(col);
+					consulta = "insert into estancia values ("+id_estancia+",'"+direccion+"','"+ ciudad +"','"+pais+"','"+estrella+"','"+precio+");";
+					st.executeUpdate(consulta);
 				}
 				st.close();
 				conexion.close();
@@ -181,15 +182,15 @@ public class agenciaMain {
 				e.printStackTrace();
 				System.out.println("Error de Conexión");
 			}
-		}
+		}	
 		
 		if (res) {
 			try {
-				String col = "";
+				String consulta = "";
 				Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/agenciaviaje_taw", "root", "");
 				Statement st = conexion.createStatement();
-				col = "delete FROM reserva;";
-				st.executeUpdate(col);
+				consulta = "delete FROM reserva;";
+				st.executeUpdate(consulta);
 				int id_reserva;
 				int id_estancia;
 				int id_vuelo;
@@ -203,8 +204,8 @@ public class agenciaMain {
 					precio = reservas.get(pos).getPrecio();
 					dia_inicio = reservas.get(pos).getDia_inicio();
 					dia_fin = reservas.get(pos).getDia_fin();
-					col = "insert into reservas values ("+id_reserva+",'"+id_estancia+"','"+ id_vuelo +"','"+precio+"','"+dia_inicio+"','"+dia_fin+");";
-					st.executeUpdate(col);
+					consulta = "insert into reservas values ("+id_reserva+",'"+id_estancia+"','"+ id_vuelo +"','"+precio+"','"+dia_inicio+"','"+dia_fin+");";
+					st.executeUpdate(consulta);
 				}
 				st.close();
 				conexion.close();
@@ -214,6 +215,7 @@ public class agenciaMain {
 				System.out.println("Error de Conexión");
 			}
 		}
+		
 	}
 		while (seguir);	
 	}
