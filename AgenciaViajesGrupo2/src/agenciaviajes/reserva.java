@@ -3,16 +3,11 @@ package agenciaviajes;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Date;
 
 import java.util.Scanner;
 
 public class reserva implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	
 	private int id_reserva;
 	private int id_estancia;
@@ -38,7 +33,6 @@ public class reserva implements Serializable{
 		this.dia_fin=diaf;
 	}
 	
-
 	public int getId_reserva() {
 		return id_reserva;
 	}
@@ -51,7 +45,7 @@ public class reserva implements Serializable{
 	public int getPrecio() {
 		return precio;
 	}
-	public java.sql.Date getDia_inicio() {
+	public Date getDia_inicio() {
 		return dia_inicio;
 	}
 	public Date getDia_fin() {
@@ -106,10 +100,9 @@ public class reserva implements Serializable{
 		catch (ParseException e){
 			e.printStackTrace();
 		}
-		
 		System.out.println("Dia final: ");
 		try {
-			this.dia_fin= (Date) new SimpleDateFormat("yyyy-MM-sdd").parse(sc.next());
+			this.dia_fin= (Date) new SimpleDateFormat("yyyy-MM-dd").parse(sc.next());
 		}	
 		catch (ParseException e){
 			e.printStackTrace();

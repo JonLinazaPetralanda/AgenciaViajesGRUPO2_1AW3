@@ -3,6 +3,7 @@ package agenciaviajes;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,11 +13,21 @@ import java.util.Scanner;
 public class agenciaMain {
 
 	public static void main(String[] args) {
+		/*
+		 * Documentacion del main
+		 * 
+		 * @author Grupo2: Jon Linaza, Asier Murillo, Gaizka Mendez
+		 * @version: 17.04.2023
+		 */
 		Scanner sc=new Scanner(System.in);
 		ArrayList<reserva> reservas=new ArrayList<reserva>();
 		ArrayList<socio> clientesocio=new ArrayList<socio>();
 		ArrayList<estancia> estancias=new ArrayList<estancia>();
 		ArrayList<vuelo> vuelos=new ArrayList<vuelo>();
+		/*
+		 * Las matrices de cada clase creadas para almacenar los datos correspondientes
+		 * En estancias se almacenara datos que se introdujeron en estancia.
+		 */
 		int menu;
 		boolean seguir=true;
 		boolean vue=false;
@@ -77,23 +88,19 @@ public class agenciaMain {
 		    	case 1:
 		    		estancia e1=new estancia();
 		    			e1.leerEstancia(sc);
-		    			estancias.add(e1);
-		    			
-		    			est=true;	
+		    			estancias.add(e1);	
 		    		break;
 		    	
 		    	case 2:
 		       		vuelo v1=new vuelo();
 		       			v1.leerVuelo(sc);
 		    			vuelos.add(v1);
-		    			vue=true;
 		    		break;
 
 		    	case 3:
 		    		reserva r1=new reserva();
 		    			r1.leerReserva(sc);
 		    			reservas.add(r1);
-		    			res=true;
 		            break;
 		        
 		    	case 4:
@@ -115,17 +122,20 @@ public class agenciaMain {
 			        break;
 		   
 		    }
-            System.out.println("¿Jarraitu nahi duzu? (S/N)");
+            System.out.println("¿Jarraitu nahi duzu? Ez/Bai");
             char continuar = sc.next().charAt(0);
-            if (continuar == 'n' || continuar == 'N') {
+            if (continuar == 'e' || continuar == 'E') {
                 seguir = false;
             }	
 		
-		 if (vue) {
+		 if (vue==true) {
 			try {
-				String consulta = "";
-				Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/agenciaviaje_taw", "root", "");
+				String url = "jdbc:mysql://localhost/agenciaviaje_taw";
+				String user = "root";
+				String password = "";
+				Connection conexion = DriverManager.getConnection(url, user, password);
 				Statement st = conexion.createStatement();
+				String consulta = "";
 				consulta = "delete FROM vuelo;";
 				st.executeUpdate(consulta);
 				int id_vuelo;
@@ -139,7 +149,6 @@ public class agenciaMain {
 					hora_llegada = vuelos.get(pos).getHora_llegada();
 					ciudad_salida = vuelos.get(pos).getCiudad_salida();
 					ciudad_llegada = vuelos.get(pos).getCiudad_llegada();
-					
 					consulta = "insert into vuelo values ("+id_vuelo+",'"+hora_salida+"','"+ hora_llegada +"','"+ciudad_salida+"','"+ciudad_salida+"','"+ciudad_llegada+");";
 					st.executeUpdate(consulta);
 				}
@@ -152,11 +161,14 @@ public class agenciaMain {
 			}
 		}	
 		
-		if (est) {
+		if (est==true) {
 			try {
-				String consulta = "";
-				Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/agenciaviaje_taw", "root", "");
+				String url = "jdbc:mysql://localhost/agenciaviaje_taw";
+				String user = "root";
+				String password = "";
+				Connection conexion = DriverManager.getConnection(url, user, password);
 				Statement st = conexion.createStatement();
+				String consulta = "";
 				consulta = "delete FROM estancia;";
 				st.executeUpdate(consulta);
 				int id_estancia;
@@ -184,11 +196,14 @@ public class agenciaMain {
 			}
 		}	
 		
-		if (res) {
+		if (res==true) {
 			try {
-				String consulta = "";
-				Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/agenciaviaje_taw", "root", "");
+				String url = "jdbc:mysql://localhost/agenciaviaje_taw";
+				String user = "root";
+				String password = "";
+				Connection conexion = DriverManager.getConnection(url, user, password);
 				Statement st = conexion.createStatement();
+				String consulta = "";
 				consulta = "delete FROM reserva;";
 				st.executeUpdate(consulta);
 				int id_reserva;
@@ -202,8 +217,8 @@ public class agenciaMain {
 					id_estancia = reservas.get(pos).getId_estancia();
 					id_vuelo = reservas.get(pos).getId_vuelo();
 					precio = reservas.get(pos).getPrecio();
-					dia_inicio = reservas.get(pos).getDia_inicio();
-					dia_fin = reservas.get(pos).getDia_fin();
+					dia_inicio = (Date) reservas.get(pos).getDia_inicio();
+					dia_fin = (Date) reservas.get(pos).getDia_fin();
 					consulta = "insert into reservas values ("+id_reserva+",'"+id_estancia+"','"+ id_vuelo +"','"+precio+"','"+dia_inicio+"','"+dia_fin+");";
 					st.executeUpdate(consulta);
 				}
