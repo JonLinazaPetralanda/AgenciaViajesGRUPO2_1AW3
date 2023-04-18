@@ -24,6 +24,9 @@ public class agenciaMain {
 		ArrayList<socio> clientesocio=new ArrayList<socio>();
 		ArrayList<estancia> estancias=new ArrayList<estancia>();
 		ArrayList<vuelo> vuelos=new ArrayList<vuelo>();
+		reserva re1;
+		estancia es1;
+		vuelo vu1;
 		/*
 		 * Las matrices de cada clase creadas para almacenar los datos correspondientes
 		 * En estancias se almacenara datos que se introdujeron en estancia.
@@ -80,27 +83,34 @@ public class agenciaMain {
 		    System.out.println("4. Estantzia datuak erakutsi");
 		    System.out.println("5. Hegaldi datuak erakutsi");
 		    System.out.println("6. Erreserba datuak erakutsi");
+		    System.out.println("0. Atera programatik");
 		    System.out.println("******************************");
 		    System.out.println("Zer egin nahi duzu?");
 		    menu=sc.nextInt();
 
 		    switch (menu) {
+		    	case 0:
+		    		System.exit(0);
+		    		break;
 		    	case 1:
 		    		estancia e1=new estancia();
 		    			e1.leerEstancia(sc);
-		    			estancias.add(e1);	
+		    			estancias.add(e1);
+		    			est=true;
 		    		break;
 		    	
 		    	case 2:
 		       		vuelo v1=new vuelo();
 		       			v1.leerVuelo(sc);
 		    			vuelos.add(v1);
+		    			vue=true;
 		    		break;
 
 		    	case 3:
 		    		reserva r1=new reserva();
 		    			r1.leerReserva(sc);
 		    			reservas.add(r1);
+		    			res=true;
 		            break;
 		        
 		    	case 4:
@@ -120,7 +130,7 @@ public class agenciaMain {
 			        	r2.pantailaratuReserva();
 			        }
 			        break;
-		   
+		 
 		    }
             System.out.println("¿Jarraitu nahi duzu? Ez/Bai");
             char continuar = sc.next().charAt(0);
@@ -128,29 +138,25 @@ public class agenciaMain {
                 seguir = false;
             }	
 		
-		 if (vue==true) {
+		 if (vue) {
 			try {
 				String url = "jdbc:mysql://localhost/agenciaviaje_taw";
 				String user = "root";
 				String password = "";
 				Connection conexion = DriverManager.getConnection(url, user, password);
 				Statement st = conexion.createStatement();
-				String consulta = "";
-				consulta = "delete FROM vuelo;";
-				st.executeUpdate(consulta);
-				int id_vuelo;
-				String hora_salida;
-				String hora_llegada;
-				String ciudad_salida;
-				String ciudad_llegada;
+				//String consulta = "";
+				//consulta = "delete FROM vuelo;";
+				//st.executeUpdate(consulta);
 				for (int pos = 0; pos < vuelos.size(); pos++) {
-					id_vuelo = vuelos.get(pos).getId_vuelo();
-					hora_salida = vuelos.get(pos).getHora_salida();
-					hora_llegada = vuelos.get(pos).getHora_llegada();
-					ciudad_salida = vuelos.get(pos).getCiudad_salida();
-					ciudad_llegada = vuelos.get(pos).getCiudad_llegada();
-					consulta = "insert into vuelo values ("+id_vuelo+",'"+hora_salida+"','"+ hora_llegada +"','"+ciudad_salida+"','"+ciudad_salida+"','"+ciudad_llegada+");";
-					st.executeUpdate(consulta);
+					vu1=vuelos.get(pos);
+					int id_vuelo = vu1.getId_vuelo();
+					String hora_salida = vu1.getHora_salida();
+					String hora_llegada = vu1.getHora_llegada();
+					String ciudad_salida = vu1.getCiudad_salida();
+					String ciudad_llegada = vu1.getCiudad_llegada();
+					st.executeUpdate("insert into vuelo values ("+id_vuelo+",'"+hora_salida+"','"+ hora_llegada +"','"+ciudad_salida+"','"+ciudad_llegada+");");
+					
 				}
 				st.close();
 				conexion.close();
@@ -161,31 +167,27 @@ public class agenciaMain {
 			}
 		}	
 		
-		if (est==true) {
+		if (est) {
 			try {
 				String url = "jdbc:mysql://localhost/agenciaviaje_taw";
 				String user = "root";
 				String password = "";
 				Connection conexion = DriverManager.getConnection(url, user, password);
 				Statement st = conexion.createStatement();
-				String consulta = "";
-				consulta = "delete FROM estancia;";
-				st.executeUpdate(consulta);
-				int id_estancia;
-				String direccion;
-				String ciudad;
-				String pais;
-				int estrella;
-				int precio;
+			//	String consulta = "";
+			//	consulta = "delete FROM estancia;";
+			//	st.executeUpdate(consulta);
+			
 				for (int pos = 0; pos < estancias.size(); pos++) {
-					id_estancia = estancias.get(pos).getId_estancia();
-					direccion = estancias.get(pos).getDireccion();
-					ciudad = estancias.get(pos).getCiudad();
-					pais = estancias.get(pos).getPais();
-					estrella = estancias.get(pos).getEstrella();
-					precio = estancias.get(pos).getPrecio();
-					consulta = "insert into estancia values ("+id_estancia+",'"+direccion+"','"+ ciudad +"','"+pais+"','"+estrella+"','"+precio+");";
-					st.executeUpdate(consulta);
+					es1=estancias.get(pos);
+					int id_estancia = es1.getId_estancia();
+					String direccion = es1.getDireccion();
+					String ciudad = es1.getCiudad();
+					String pais = es1.getPais();
+					int estrella = es1.getEstrella();
+					int precio = es1.getPrecio();
+					st.executeUpdate("insert into estancia values ("+id_estancia+",'"+direccion+"','"+ ciudad +"','"+pais+"','"+estrella+"','"+precio+");");
+					
 				}
 				st.close();
 				conexion.close();
@@ -196,31 +198,50 @@ public class agenciaMain {
 			}
 		}	
 		
-		if (res==true) {
+		if (res) {
 			try {
 				String url = "jdbc:mysql://localhost/agenciaviaje_taw";
 				String user = "root";
 				String password = "";
 				Connection conexion = DriverManager.getConnection(url, user, password);
 				Statement st = conexion.createStatement();
-				String consulta = "";
-				consulta = "delete FROM reserva;";
-				st.executeUpdate(consulta);
-				int id_reserva;
-				int id_estancia;
-				int id_vuelo;
-				int precio;
-				Date dia_inicio;
-				Date dia_fin;
+			//	String consulta = "";
+			//	consulta = "delete FROM reserva;";
+			//	st.executeUpdate(consulta);
+			//  consulta = "delete FROM estancia;";
+			//	st.executeUpdate(consulta);
+			//	consulta = "delete FROM vuelo;";
+			//	st.executeUpdate(consulta);
+							
+				
 				for (int pos = 0; pos < reservas.size(); pos++) {
-					id_reserva = reservas.get(pos).getId_reserva();
-					id_estancia = reservas.get(pos).getId_estancia();
-					id_vuelo = reservas.get(pos).getId_vuelo();
-					precio = reservas.get(pos).getPrecio();
-					dia_inicio = (Date) reservas.get(pos).getDia_inicio();
-					dia_fin = (Date) reservas.get(pos).getDia_fin();
-					consulta = "insert into reservas values ("+id_reserva+",'"+id_estancia+"','"+ id_vuelo +"','"+precio+"','"+dia_inicio+"','"+dia_fin+");";
-					st.executeUpdate(consulta);
+					re1=reservas.get(pos);
+					int id_reserva = re1.getId_reserva();
+					int id_estancia = re1.getId_estancia();
+					int id_vuelo = re1.getId_vuelo();
+					int precio = re1.getPrecio();
+					Date dia_inicio = (Date) re1.getDia_inicio();
+					Date dia_fin = (Date) re1.getDia_fin();
+					
+					es1=estancias.get(pos);
+				//	int id_estancia = es1.getId_estancia();
+					String direccion = es1.getDireccion();
+					String ciudad = es1.getCiudad();
+					String pais = es1.getPais();
+					int estrella = es1.getEstrella();
+				//	int precio = es1.getPrecio();
+					
+					vu1=vuelos.get(pos);
+				//	int id_vuelo = vu1.getId_vuelo();
+					String hora_salida = vu1.getHora_salida();
+					String hora_llegada = vu1.getHora_llegada();
+					String ciudad_salida = vu1.getCiudad_salida();
+					String ciudad_llegada = vu1.getCiudad_llegada();
+			
+					st.executeUpdate("insert into estancia values ("+id_estancia+",'"+direccion+"','"+ ciudad +"','"+pais+"','"+estrella+"','"+precio+");");
+					st.executeUpdate("insert into vuelo values ("+id_vuelo+",'"+hora_salida+"','"+ hora_llegada +"','"+ciudad_salida+"','"+ciudad_llegada+");");
+					st.executeUpdate("insert into reserva values ("+id_reserva+",'"+id_estancia+"','"+ id_vuelo +"','"+precio+"','"+dia_inicio+"','"+dia_fin+");");
+					
 				}
 				st.close();
 				conexion.close();
